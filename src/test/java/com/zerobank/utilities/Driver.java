@@ -27,8 +27,10 @@ public class Driver {
             String browser = browserParamFromEnv == null ? ConfigurationReader.getProperty("browser") : browserParamFromEnv;
             switch (browser) {
                 case "chrome":
+                    ChromeOptions chromeOptions = new ChromeOptions();// handling SSL certification error
+                    chromeOptions.setAcceptInsecureCerts(true);
                     WebDriverManager.chromedriver().setup();
-                    driverPool.set(new ChromeDriver());
+                    driverPool.set(new ChromeDriver(chromeOptions));
                     break;
                 case "chrome_headless":
                     WebDriverManager.chromedriver().setup();
